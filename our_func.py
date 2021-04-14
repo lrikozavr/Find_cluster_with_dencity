@@ -76,3 +76,4 @@ def TxtToArray(filename,size,col):
     #return kk
     return mass1
     #lets
+    #do it
