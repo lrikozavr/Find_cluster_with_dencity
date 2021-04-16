@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from our_func import TxtToArray
+from our_func import *
 
 cf2,cf4=0.25,0.5
 #Распределяет звезду в ближайшие смежные по правилу покрытия сf клетки
@@ -9,25 +9,25 @@ def ValSep(x,y,value,size,cf,mass):
     #
     su=0
     if(x - i1 < cf and i1 > 0):
-        mass[j1][i1-1]+=var 
+        mass[j1][i1-1]+=value
         su+=1
     if(x - i1 > 1 - cf and i1 < size - 1):
-        mass[j1][i1+1]+=var    
+        mass[j1][i1+1]+=value    
         su+=3
     if(y - j1 < cf and j1 > 0):
-        mass[j1-1][i1]+=var 
+        mass[j1-1][i1]+=value 
         su+=1
     if(y - i1 > 1 - cf and j1 < size - 1):
-        mass[j1+1][i1]+=var    
+        mass[j1+1][i1]+=value    
         su+=5
     if(su==2):
-        mass[j1-1][i1-1]+=var
+        mass[j1-1][i1-1]+=value
     if(su==4):
-        mass[j1-1][i1+1]+=var
+        mass[j1-1][i1+1]+=value
     if(su==6):
-        mass[j1+1][i1-1]+=var
+        mass[j1+1][i1-1]+=value
     if(su==8):
-        mass[j1+1][i1+1]+=var
+        mass[j1+1][i1+1]+=value
 
 
 def StarDensityTxtWithRad_P(x,size):

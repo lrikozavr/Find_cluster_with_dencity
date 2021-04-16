@@ -98,6 +98,29 @@ def MainWavlet(filename,size,col,ig,koef):
     fig=plt.figure()
     axes=Axes3D(fig)
     #
-    axes.plot_surface(x,y,Wavlet(kk,ig,koef), rstride=1, cstride=1, cmap = cm.jet)
+    axes.plot_surface(x,y,np.array(Wavlet(kk,ig,koef)), rstride=1, cstride=1, cmap = cm.jet)
 
 #main("/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_79807069.txt",100,62,1,KF98)
+def StarDensityTxtWithRad_W(x,size):
+    N=len(x)
+    h=[[0]*size for i in range(size)]
+    #h1=[[0]*size for i in range(size)]
+    flag=0
+    if(np.size(x[0].split(","))/np.size(float)==2):
+        flag=1
+    for i in range(N):
+        n=x[i].split(",")
+        i1=math.trunc(float(n[0]))
+        j1=math.trunc(float(n[1]))
+        #print(i1,j1)
+        #h1[j1][i1]+=1;
+        if (flag==0):
+            h[j1][i1]+=int(n[2])#########################################################################
+        else: h[j1][i1]+=1
+        '''
+    for i in range(size):
+        for j in range(size):
+            if (not h1[i][j]==0):
+                h[i][j]=h[i][j]/h1[i][j]   
+        '''
+    return h

@@ -4,9 +4,10 @@ from matplotlib import pyplot as plt
 from Parzen import *
 from Wavelet import *
 
+filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt"
+
 size = 100
-col_num = 7
-filename = filename
+col_num = 62
 
 data=[[0]*size for i in range(size)]
 data1=[[0]*size for i in range(size)]
@@ -20,8 +21,13 @@ x, y = makeData(range(size),range(size))
 fig=plt.figure()
 axes=Axes3D(fig)
 #
-axes.plot_surface(x,y,P_data, rstride=1, cstride=1, cmap = cm.jet)
+axes.plot_surface(x,y,np.array(P_data), rstride=1, cstride=1, cmap = cm.jet)
+#
+fig1=plt.figure()
+axes1=Axes3D(fig1)
+axes1.plot_surface(x,y,np.array(P_data1), rstride=1, cstride=1, cmap = cm.jet)
+
 ##########
 
-MainWavlet("/media/kiril/j_08/CATALOGUE/gaiadr2_BMS_sort_n.txt",100,0,1,KF90)
-MainWavlet("/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt",100,62,1,KF90)
+#MainWavlet("/media/kiril/j_08/CATALOGUE/gaiadr2_BMS_sort_n.txt",100,0,1,KF90)
+MainWavlet(filename,100,62,1,KF90)
