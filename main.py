@@ -6,7 +6,7 @@ from Wavelet import *
 
 filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt"
 
-size = 100
+size = 1000
 col_num = 62
 
 data=[[0]*size for i in range(size)]
@@ -23,11 +23,14 @@ axes=Axes3D(fig)
 #
 axes.plot_surface(x,y,np.array(P_data), rstride=1, cstride=1, cmap = cm.jet)
 #
+fig.savefig("/home/kiril/github/Find_cluster_with_dencity/data.png")
+#
 fig1=plt.figure()
 axes1=Axes3D(fig1)
 axes1.plot_surface(x,y,np.array(P_data1), rstride=1, cstride=1, cmap = cm.jet)
-
+fig1.savefig("/home/kiril/github/Find_cluster_with_dencity/data1.png")
 ##########
-
+plt.show()
 #MainWavlet("/media/kiril/j_08/CATALOGUE/gaiadr2_BMS_sort_n.txt",100,0,1,KF90)
-MainWavlet(filename,100,62,1,KF90)
+MainWavlet(filename,size,col_num,1,KF90)
+

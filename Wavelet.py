@@ -99,6 +99,9 @@ def MainWavlet(filename,size,col,ig,koef):
     axes=Axes3D(fig)
     #
     axes.plot_surface(x,y,np.array(Wavlet(kk,ig,koef)), rstride=1, cstride=1, cmap = cm.jet)
+    fig.savefig("/home/kiril/github/Find_cluster_with_dencity/wivelet.png")
+    plt.show()
+
 
 #main("/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_79807069.txt",100,62,1,KF98)
 def StarDensityTxtWithRad_W(x,size):
