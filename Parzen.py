@@ -6,6 +6,7 @@ cf2,cf4=0.25,0.5
 def ValSep(x,y,value,size,cf,mass):
     i1=math.trunc(x)
     j1=math.trunc(y)
+    mass[j1][i1]+=value
     #
     su=0
     if(x - i1 < cf and i1 > 0):
@@ -17,7 +18,7 @@ def ValSep(x,y,value,size,cf,mass):
     if(y - j1 < cf and j1 > 0):
         mass[j1-1][i1]+=value 
         su+=1
-    if(y - i1 > 1 - cf and j1 < size - 1):
+    if(y - j1 > 1 - cf and j1 < size - 1):
         mass[j1+1][i1]+=value    
         su+=5
     if(su==2):
@@ -34,7 +35,7 @@ def StarDensityTxtWithRad_P(x,size):
     N=len(x)
 
     h=[[0]*size for i in range(size)]
-    h1=[[0]*size for i in range(size)]
+    #h1=[[0]*size for i in range(size)]
     flag=0
     if(np.size(x[0].split(","))/np.size(float)==2):
         flag=1
@@ -44,7 +45,6 @@ def StarDensityTxtWithRad_P(x,size):
             var=int(n[2])#########################################################################
         else: var=1
         ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
-        ValSep(float(n[0]),float(n[1]),var,size,cf4,h1)
         
         '''
     for i in range(size):
@@ -53,7 +53,7 @@ def StarDensityTxtWithRad_P(x,size):
                 h[i][j]=h[i][j]/h1[i][j]   
         '''
         
-    return h,h1
+    return h
 
 def PforEach(mass,size):
     sum_of_all=0
