@@ -4,7 +4,7 @@ pi=3.14159265359
 sigma=1
 koef=1/(2*pi*sigma**2)
 
-def Gauss(x,size):
+def Gauss_text(x,size):
     N=len(x)
     h=[[0]*size for i in range(size)]
     flag=0
@@ -28,3 +28,15 @@ def Gauss(x,size):
         i1=math.trunc(n[0])
         j1=math.trunc(n[1])
         '''
+
+def Gauss_pix(mass,size):
+    h=[[0]*size for i in range(size)]
+    sum=0
+    for i in range(size):
+        for j in range(size):
+            sum+=mass[i][j]
+    sum/=size**2
+    for i in range(size):
+        for j in range(size):
+            h[i][j]=koef*pow(e, (-(sum-mass[i][j])**2) /  (2*sigma**2) )
+    return h

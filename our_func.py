@@ -53,3 +53,14 @@ def TxtToArray(filename,size,col):
     return mass1
     #lets
     #do it
+def Piece_of_mass(mass,v,size):
+    if (size + v[0] - 1 > pow(np.size(mass),0.5) or size + v[1] - 1 > pow(np.size(mass),0.5)):
+        print("Error index out")
+        return
+    rezult = [[0]*size for i in range(size)]
+    for i in range(size):
+        for j in range(size):
+            rezult[i][j] = mass[v[0]+i][v[1]+j]
+    return rezult
+
+
