@@ -18,14 +18,17 @@ def Sep_Pic(path,data,size,n):
             x, y = makeData(range(n),range(n))
             z = Piece_of_mass(data,v,n)
             #mass = []
+            '''
             mass = Wavlet(z,1,KF90)
             pylab.pcolormesh(x,y,np.array(mass))
             pylab.savefig(path+"Wavelet_"+str(i)+"_"+str(j)+".png")
+            '''
             #mass = []
             mass = Gauss_pix(z,n)
             pylab.pcolormesh(x,y,np.array(mass))
             pylab.savefig(path+"Gauss_"+str(i)+"_"+str(j)+".png")
             #
+            '''
             pylab.pcolormesh(x,y,np.array(z))
             pylab.savefig(path+"Pure_pic_"+str(i)+"_"+str(j)+".png")
-            
+            '''

@@ -2,6 +2,9 @@
 import numpy as np
 import math
 
+pi=3.14159265359
+e=2.7182818284
+
 def TxtToArray(filename,size,col):
     maxr,minr=-1,361
     maxd,mind=-91,91

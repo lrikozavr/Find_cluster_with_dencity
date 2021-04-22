@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-pi=3.14159265359
-sigma=1
+from our_func import *
+sigma=10
 koef=1/(2*pi*sigma**2)
 
 def Gauss_text(x,size):
@@ -31,12 +31,23 @@ def Gauss_text(x,size):
 
 def Gauss_pix(mass,size):
     h=[[0]*size for i in range(size)]
-    sum=0
+    
+    sum_x,sum_y=0,0
     for i in range(size):
         for j in range(size):
-            sum+=mass[i][j]
-    sum/=size**2
+            sum_x+=mass[i][j]*i
+            sum_y+=mass[i][j]*j
+    sum_x/=size**2
+    sum_y/=size**2
+    
+    '''
+    sum=-1
     for i in range(size):
         for j in range(size):
-            h[i][j]=koef*pow(e, (-(sum-mass[i][j])**2) /  (2*sigma**2) )
+            if(sum<mass[i][j]):
+                sum=mass[i][j]
+    '''
+    for i in range(size):
+        for j in range(size):
+            h[i][j]=koef*pow(e, (-(sum_x-mass[i][j]*i)**2 - (sum_y-mass[i][j]*j)**2) /  (2*sigma**2) )
     return h

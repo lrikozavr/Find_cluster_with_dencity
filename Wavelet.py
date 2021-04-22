@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
-e=2.7182818284
+#e=2.7182818284
 KF98=5.64 #1.68
 KF95=3.81 #1.38
 KF90=2.59 #1.14
@@ -82,7 +82,8 @@ def Wavlet(mass,ig,koef):
             m=Ryad1(kkk,f,ig,j)/Ryad_n(ig)
             #KF98 коэффициент для 98% вероятности
             if (m*m >= SigmaSqr(kkk)*Z(kkk,f,ig,j)*koef):
-                WWW[j][p]=m*abs(m)
+                #WWW[j][p]=m*abs(m)
+                WWW[p][j]=m*abs(m)
     return WWW
 #cstride,cstride accuracy of graphic
 def makeData(x,y):
