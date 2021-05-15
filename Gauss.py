@@ -81,7 +81,12 @@ def nw_Gauss(mass,size):
     
     for i in range(size):
         for j in range(size):
-            h[i][j]=mass[i][j]*(G(i,j,3,sum_x,sum_y) - G(i,j,5,sum_x,sum_y))
-            h[i][j]*=pow(4*pi,0.5)*3*(1/pow(h[i][j]*G(i,j,5,sum_x,sum_y),0.5))
+            h[i][j]=mass[i][j]*(G(i,j,1.,sum_x,sum_y) - G(i,j,100.,sum_x,sum_y))
+            if(h[i][j] != 0):
+                if(h[i][j] < 0):    
+                    h[i][j]*=pow(4.*pi,0.5)*3.*(1/(pow(abs(h[i][j])*G(i,j,100.,sum_x,sum_y),0.5)))
+                else:
+                    h[i][j]*=pow(4.*pi,0.5)*3.*(1/(pow(h[i][j]*G(i,j,100.,sum_x,sum_y),0.5)))   
+                
     return h
     
