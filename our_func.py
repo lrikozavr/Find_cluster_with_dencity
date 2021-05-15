@@ -25,8 +25,8 @@ def TxtToArray(filename,size,col):
         if (b<mind):
             mind=b
     #print(100/(maxr-minr),100/(maxd-mind))
-    KORA=abs((size-1.)/(maxr-minr))
-    KODA=abs((size-1.)/(maxd-mind))
+    KORA=abs((size-1e-5)/(maxr-minr))
+    KODA=abs((size-1e-5)/(maxd-mind))
     h,h1=0,0
     #
     if (mind < 0 and maxd < 0):

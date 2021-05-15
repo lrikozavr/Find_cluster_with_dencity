@@ -30,6 +30,38 @@ def ValSep(x,y,value,size,cf,mass):
     if(su==8):
         mass[j1+1][i1+1]+=value
 
+def ValSep_P(x,y,value,size,mass):
+    i1=math.trunc(x)
+    j1=math.trunc(y)
+    su=0
+    if(i1 + 1 == size):
+        i1-=1
+        su+=1
+    if(j1 + 1 == size):
+        j1-=1
+        su+=2
+    mass[i1][j1]+=value
+    if(i1>0 and j1>0):
+        if(su==0):
+            mass[i1-1][j1-1]+=value
+            mass[i1][j1-1]+=value
+            mass[i1-1][j1]+=value
+        if(su==1):
+            mass[i1][j1-1]+=value
+        if(su==2):
+            mass[i1-1][j1]+=value
+    else:
+        if(j1>0):
+            if(su!=2):
+                mass[i1][j1-1]+=value
+        if(i1>0):
+            if(su!=1):
+                mass[i1-1][j1]+=value
+    
+    
+    
+
+
 
 def StarDensityTxtWithRad_P(x,size):
     N=len(x)
