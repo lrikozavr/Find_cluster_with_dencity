@@ -87,6 +87,61 @@ def StarDensityTxtWithRad_P(x,size):
         
     return h
 
+def Moda(bach,mass,size):
+    temp=[0]*bach
+    #temp=[[0]*size for i in range(size)]
+    max,min=-1,1
+    for i in range(size):
+        for j in range(size):
+            if(mass[i][j]>max):
+                max=mass[i][j]
+            if(mass[i][j]<min):
+                min=mass[i][j]
+    dm=max-min
+    koef_bach=(bach-1e-5)/dm
+    for i in range(size):
+        for j in range(size):
+            temp[math.trunc((mass[i][j]-min)*koef_bach)]+=1
+    maxt=-1
+    index=-1
+    for i in range(bach):
+        if(temp[i]>maxt):
+            maxt=temp[i]
+            index=i
+    index+=0.5
+    rezult = (index*dm)/(bach-1e-5) + min
+    return rezult
+        
+
+def LocalMaxima(mass,size,mode):
+    rezult=[]
+    for i in range(size):
+        for j in range(size):
+            flag=1
+            if(mass[i][j]>mode):
+                for i1 in range(-2,3,1):
+                    for j1 in range(-2,3,1):
+                        if(i1!=0 and j1!=0 and i+i1<size and i+i1>=0 and j+j1<size and j+j1>=0):
+                            if(mass[i][j]<mass[i+i1][j+j1]):
+                                flag=0
+                                break
+                    if(not flag):
+                        break
+            if(flag):
+                line={i,j}
+                rezult.append(line)
+    return rezult
+
+def Parzen_P(x,size):
+    mass=[[0]*size for i in range(size)]
+    bachsize=40
+    localmaxima=[]
+    mass=StarDensityTxtWithRad_P(x,size)
+    moda=Moda(bachsize,mass,size)
+    localmaxima=LocalMaxima(mass,size,moda)
+
+
+
 def PforEach(mass,size):
     sum_of_all=0
     P_max = -1
