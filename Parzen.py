@@ -132,15 +132,45 @@ def LocalMaxima(mass,size,mode):
                 rezult.append(line)
     return rezult
 
+def calc_lambada(loc_m,mass,step):
+    loc=[]
+    for i in range(len(loc_m)):
+        loc.append(mass[loc_m[i][0]][loc_m[i][1]])
+    #big to small
+    loc.sort(reverse=True)
+    dl,fl=0,0
+    for i in range(len(loc)):
+        if(i+1 != len(loc)):
+            if(dl > loc[i+1]-loc[i]):
+                fl+=1
+            dl=loc[i+1]-loc[i]
+            if(fl>step):
+                return loc[i]
+
+def sigma_bg(loc_m,mass,N,mode,lambada):
+    sum=0
+    for i in range(len(loc_m)):
+        Li=mass[loc_m[i][0]][loc_m[i][1]]
+        if(Li <= lambada):
+            sum+=math.pow(Li-mode,2)
+    return math.sqrt(sum/N)
+
+
 def Parzen_P(x,size):
+    N=len(x)
     mass=[[0]*size for i in range(size)]
     bachsize=40
     localmaxima=[]
     mass=StarDensityTxtWithRad_P(x,size)
     moda=Moda(bachsize,mass,size)
     localmaxima=LocalMaxima(mass,size,moda)
-
-
+    lambada=calc_lambada(localmaxima,mass,5)
+    sig_bg=sigma_bg(localmaxima,mass,N,moda,lambada)
+    for i in range(size):
+        for j in range(size):
+            if(mass[i][j]<2*sig_bg):
+                mass[i][j]=0
+    return mass
 
 def PforEach(mass,size):
     sum_of_all=0
