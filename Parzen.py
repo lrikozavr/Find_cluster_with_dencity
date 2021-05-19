@@ -77,7 +77,7 @@ def StarDensityTxtWithRad_P(x,size):
             var=int(n[2])#########################################################################
         else: var=1
         #ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
-        ValSep(float(n[0]),float(n[1]),var,size,h)
+        ValSep_P(float(n[0]),float(n[1]),var,size,h)
         
         '''
     for i in range(size):
@@ -157,21 +157,29 @@ def sigma_bg(loc_m,mass,N,mode,lambada):
     return math.sqrt(sum/N)
 
 
-def Parzen_P(x,size):
-    N=len(x)
-    mass=[[0]*size for i in range(size)]
+def Parzen_P(mass,size):
+    #N=len(x)
+    #mass=[[0]*size for i in range(size)]
+    h=[[0]*size for i in range(size)]
     bachsize=40
     localmaxima=[]
-    mass=StarDensityTxtWithRad_P(x,size)
-    moda=Moda(bachsize,mass,size)
-    localmaxima=LocalMaxima(mass,size,moda)
-    lambada=calc_lambada(localmaxima,mass,5)
-    sig_bg=sigma_bg(localmaxima,mass,N,moda,lambada)
+    #mass=StarDensityTxtWithRad_P(x,size)
+    N=0
     for i in range(size):
         for j in range(size):
-            if(mass[i][j]<2*sig_bg):
-                mass[i][j]=0
-    return mass
+            N+=mass[i][j]
+    for i in range(size):
+        for j in range(size):
+            h[i][j]=mass[i][j]/(N*4)
+    moda=Moda(bachsize,h,size)
+    localmaxima=LocalMaxima(h,size,moda)
+    lambada=calc_lambada(localmaxima,h,5)
+    sig_bg=sigma_bg(localmaxima,h,N,moda,lambada)
+    for i in range(size):
+        for j in range(size):
+            if(h[i][j]<2*sig_bg):
+                h[i][j]=0
+    return h
 
 def PforEach(mass,size):
     sum_of_all=0

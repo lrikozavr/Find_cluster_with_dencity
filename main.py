@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import sys
 
 from Parzen import *
 from Wavelet import *
@@ -7,7 +7,9 @@ from our_func import *
 from Picture import Sep_Pic,Sep_Pic_3d
 #"/media/kiril/j_08/CATALOGUE/gaiadr2_BMS_sort_n.txt"
 #filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n_81_80_70_69.txt"
-filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt"
+#filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt"
+
+filename=sys.argv[1]
 
 size = 1000
 col_num = 60
@@ -29,7 +31,7 @@ data = StarDensityTxtWithRad_P(TxtToArray(filename,size,col_num),size)
 #
 #pylab.show()
 Sep_Pic("/home/kiril/github/Find_cluster_with_dencity/BMS_pictures_60/",data,size,100)
-Sep_Pic_3d("/home/kiril/github/Find_cluster_with_dencity/BMS_pictures_60/",data,size,100)
+#Sep_Pic_3d("/home/kiril/github/Find_cluster_with_dencity/BMS_pictures_60/",data,size,100)
 
 Sep_Pic("/home/kiril/github/Find_cluster_with_dencity/BMS_pictures_60/",data,size,1000)
 
