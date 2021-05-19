@@ -76,7 +76,8 @@ def StarDensityTxtWithRad_P(x,size):
         if (flag==0):
             var=int(n[2])#########################################################################
         else: var=1
-        ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
+        #ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
+        ValSep(float(n[0]),float(n[1]),var,size,h)
         
         '''
     for i in range(size):
