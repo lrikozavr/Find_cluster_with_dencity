@@ -129,7 +129,7 @@ def LocalMaxima(mass,size,mode):
                     if(not flag):
                         break
             if(flag):
-                line={i,j}
+                line=[i,j]
                 rezult.append(line)
     return rezult
 
@@ -173,7 +173,7 @@ def Parzen_P(mass,size):
             h[i][j]=mass[i][j]/(N*4)
     moda=Moda(bachsize,h,size)
     localmaxima=LocalMaxima(h,size,moda)
-    lambada=calc_lambada(localmaxima,h,5)
+    lambada=calc_lambada(localmaxima,h,1)
     sig_bg=sigma_bg(localmaxima,h,N,moda,lambada)
     for i in range(size):
         for j in range(size):

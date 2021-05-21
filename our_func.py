@@ -10,7 +10,7 @@ def TxtToArray(filename,size,col):
     maxd,mind=-91,91
     mass,mass1=[],[]
     for line in open(filename):
-        n=line.split("\t")
+        n=line.split(",")
         if (col > 2):
             mass.append(n[0]+","+n[1]+","+n[col-1])#################################################################
         else: mass.append(n[0]+","+n[1])
