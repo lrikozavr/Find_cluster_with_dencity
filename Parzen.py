@@ -143,10 +143,13 @@ def calc_lambada(loc_m,mass,step):
     for i in range(len(loc)):
         if(i+1 != len(loc)):
             if(dl > loc[i+1]-loc[i]):
+                return loc[i]
+                '''
                 fl+=1
             dl=loc[i+1]-loc[i]
             if(fl>step):
                 return loc[i]
+                '''
 
 def sigma_bg(loc_m,mass,N,mode,lambada):
     sum=0
@@ -173,11 +176,14 @@ def Parzen_P(mass,size):
             h[i][j]=mass[i][j]/(N*4)
     moda=Moda(bachsize,h,size)
     localmaxima=LocalMaxima(h,size,moda)
-    lambada=calc_lambada(localmaxima,h,1)
+    #
+    #plt.hist(localmaxima,20)
+    #
+    lambada=calc_lambada(localmaxima,h,0)
     sig_bg=sigma_bg(localmaxima,h,N,moda,lambada)
     for i in range(size):
         for j in range(size):
-            if(h[i][j]<2*sig_bg):
+            if(h[i][j]<2*sig_bg+moda):
                 h[i][j]=0
     return h
 
