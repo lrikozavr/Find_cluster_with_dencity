@@ -61,7 +61,30 @@ def ValSep_P(x,y,value,size,mass):
     
     
 
+def StarDensityTxtWithRad_W(x,size):
+    N=len(x)
 
+    h=[[0]*size for i in range(size)]
+    #h1=[[0]*size for i in range(size)]
+    flag=0
+    if(np.size(x[0].split(","))/np.size(float)==2):
+        flag=1
+    for i in range(N):
+        n=x[i].split(",")
+        if (flag==0):
+            var=int(n[2])#########################################################################
+        else: var=1
+        ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
+
+        
+        '''
+    for i in range(size):
+        for j in range(size):
+            if (not h1[i][j]==0):
+                h[i][j]=h[i][j]/h1[i][j]   
+        '''
+        
+    return h
 
 def StarDensityTxtWithRad_P(x,size):
     N=len(x)

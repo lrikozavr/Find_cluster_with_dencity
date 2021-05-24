@@ -2,49 +2,68 @@
 import pylab
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+import matplotlib as mpl
 
-from Wavelet import Wavlet,KF90,makeData
+from Wavelet import Wavlet,KF90,KF98,makeData
 from our_func import *
 from Parzen import Parzen_P
 #from Gauss import *
 
-def Sep_Pic(path,data,size,n):
+
+def Pic(mass,path):
+    fig = plt.figure()
+    cmap = mpl.colors.LinearSegmentedColormap.from_list('my_colormap',['black','white'],256)
+    img = plt.imshow(mass,interpolation='nearest',
+            cmap = cmap,
+            origin='lower')
+    plt.colorbar(img,cmap=cmap)     
+    plt.savefig(path)
+            
+
+
+
+def Sep_Pic_Parzen(path,data,size,n):
     #n=100
     k=int(size/n)
     v=[0,0]
     z=[]
+
     for i in range(k):
         for j in range(k):
             v[0]=i*n
             v[1]=j*n
-            x, y = makeData(range(n),range(n))
+            #x, y = makeData(range(n),range(n))
             z = Piece_of_mass(data,v,n)
-            #mass = []
-            '''
-            mass = nw_Gauss(z,n)
-            #print(mass)
-            pylab.pcolormesh(x,y,np.array(mass))
-            pylab.savefig(path+"nw_Gauss_"+str(i)+"_"+str(j)+".png")
-            '''
+            #
+            Pic(z,path+"Pure_pic_"+str(i+1)+"_"+str(j+1)+".png")
+            #pylab.pcolormesh(x,y,np.array(z))
+            #pylab.savefig(path+"Pure_pic_"+str(i+1)+"_"+str(j+1)+".png")
+            #
             mass = Parzen_P(z,n)
-            pylab.pcolormesh(x,y,np.array(mass))
-            pylab.savefig(path+"Parzen_S_"+str(i)+"_"+str(j)+".png")
+            Pic(mass,path+"Parzen_S_"+str(i+1)+"_"+str(j+1)+".png")
             #
-            mass = Wavlet(z,1,KF90)
-            pylab.pcolormesh(x,y,np.array(mass))
-            pylab.savefig(path+"Wavelet_"+str(i)+"_"+str(j)+".png")
-            '''
-            #mass = []
-            mass = Gauss_pix(z,n)
-            pylab.pcolormesh(x,y,np.array(mass))
-            pylab.savefig(path+"Gauss_"+str(i)+"_"+str(j)+".png")
-            #
-            '''
-            
 
+def Sep_Pic_Wavelet(path,data,size,n):
+    #n=100
+    k=int(size/n)
+    v=[0,0]
+    z=[]
+    data = np.array(data)
+    data = data.transpose()
+    for i in range(k):
+        for j in range(k):
+            v[0]=i*n
+            v[1]=j*n
+            #x, y = makeData(range(n),range(n))
+            z = Piece_of_mass(data,v,n)
             #
-            pylab.pcolormesh(x,y,np.array(z))
-            pylab.savefig(path+"Pure_pic_"+str(i)+"_"+str(j)+".png")
+            fig=pylab.figure()
+            Pic(z,path+"Pure_pic_"+str(i)+"_"+str(j)+".png")
+            #mass = []
+            #
+            mass = Wavlet(z,1,KF98)
+            Pic(mass,path+"Wavelet_"+str(i)+"_"+str(j)+".png")
+            
 '''           
 def Sep_Pic_3d(path,data,size,n):
     k=int(size/n)
