@@ -38,17 +38,17 @@ iteration=1
 #dir_path=$(pwd)
 for i in $(ls)
 do
+load=`date +%s.%N`
 mkdir $dir_path/allwise_slice_pic/$iteration
 echo "$i"
-../main.py $i $dir_path/allwise_slice_pic/$iteration/$i 0
+../main.py $i $dir_path/allwise_slice_pic/$iteration/0_$i 0
 end1=`date +%s.%N`
 echo "col 0"
 echo "$end1 - $load" | bc -l
-../main.py $i $dir_path/allwise_slice_pic/$iteration/$i 7
+../main.py $i $dir_path/allwise_slice_pic/$iteration/7_$i 7
 end2=`date +%s.%N`
 echo "col 7"
 echo "$end2 - $end1" | bc -l
-load=end2
 iteration=$[iteration+1]
 done
 

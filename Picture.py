@@ -62,6 +62,10 @@ def Sep_Pic_Wavelet(path,data,size,n):
             #mass = []
             #
             mass = Wavlet(z,1,KF98)
+            for i in range(size):
+                for j in range(size):
+                    if(mass[i][j]<0):
+                        mass[i][j]=-1
             Pic(mass,path+"Wavelet_"+str(i)+"_"+str(j)+".png")
             
 '''           
