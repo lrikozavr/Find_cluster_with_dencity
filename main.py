@@ -6,6 +6,7 @@ from Parzen import *
 from Wavelet import *
 from our_func import *
 from Picture import Sep_Pic_Parzen,Sep_Pic_Wavelet
+from model import GaussAndWhiteNoiseModel
 #"/media/kiril/j_08/CATALOGUE/gaiadr2_BMS_sort_n.txt"
 #filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n_81_80_70_69.txt"
 #filename = "/media/kiril/j_08/skop/psqldata_catalogue/gaiadr2_BMS_1_60_n.txt"
@@ -17,7 +18,9 @@ col_num=sys.argv[3]
 size_w = 100
 size_p = 1000
 #col_num = 60
-
+len_=200000
+data_g=GaussAndWhiteNoiseModel(0,1000,200.,len_,0.5)
+#
 data_w=[[0]*size_w for i in range(size_w)]
 data_p=[[0]*size_p for i in range(size_p)]
 

@@ -5,7 +5,8 @@ from matplotlib import pyplot as plt
 def WhiteNoiseModel(a,b,count):
     rezult=[]
     for i in range(count):
-        list=[random.uniform(a,b),random.uniform(a,b)]
+        #list=[random.uniform(a,b),random.uniform(a,b)]
+        list=[random.randint(a,b),random.randint(a,b)]
         rezult.append(list)
     return rezult
 
@@ -18,8 +19,8 @@ def GaussModel(a,b,g_c,count):
     for g in range(count):
         sumx,sumy=o,o
         for i in range(int(g_c)):
-            sumx+=random.uniform(-dd,dd)
-            sumy+=random.uniform(-dd,dd)
+            sumx+=random.randint(-dd,dd)
+            sumy+=random.randint(-dd,dd)
         list=[sumx,sumy]
         rezult.append(list)
     return rezult    
@@ -37,9 +38,9 @@ def GaussAndWhiteNoiseModel(a,b,g_c,count,half):
     for i in range(len(rezult)):
         f.append(rezult[i])
     return f
-
+'''
 size=1000
-len_=1000
+len_=10000
 data=[[0]*size for i in range(size)]
 
 mass=GaussAndWhiteNoiseModel(0,1000,5.,len_,0.5)
@@ -51,3 +52,4 @@ for i in range(len_-1):
 plt.scatter(x,y)
 #for i in range()
 #
+'''
