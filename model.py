@@ -2,35 +2,38 @@
 import random
 from matplotlib import pyplot as plt
 
-def WhiteNoiseModel(a,b,count):
+def WhiteNoiseModel(ax,bx,ay,by,count):
     rezult=[]
     for i in range(count):
         #list=[random.uniform(a,b),random.uniform(a,b)]
-        list=[random.randint(a,b),random.randint(a,b)]
+        list=[random.randint(ax,bx),random.randint(ay,by)]
         rezult.append(list)
     return rezult
 
-def GaussModel(a,b,g_c,count):
+def GaussModel(ax,bx,ay,by,g_c,count):
     rezult=[]
-    d=b-a
-    o=d/2.
+    dx=bx-ax
+    dy=by-ay
+    ox=dx/2.
+    oy=dy/2.
     #g_c=10.
-    dd=o/g_c
+    ddx=ox/g_c
+    ddy=oy/g_c
     for g in range(count):
-        sumx,sumy=o,o
+        sumx,sumy=ox,oy
         for i in range(int(g_c)):
-            sumx+=random.randint(-dd,dd)
-            sumy+=random.randint(-dd,dd)
+            sumx+=random.randint(-ddx,ddx)
+            sumy+=random.randint(-ddy,ddy)
         list=[sumx,sumy]
         rezult.append(list)
     return rezult    
 
-def GaussAndWhiteNoiseModel(a,b,g_c,count,half):
-    Gcount=int((1-half)*count)
-    Wcount=int(half*count)
-    rezult=GaussModel(a,b,g_c,Gcount)
+def GaussAndWhiteNoiseModel(ax,bx,ay,by,g_c,count,half):
+    Gcount=int(half*count)
+    Wcount=int((1-half)*count)
+    rezult=GaussModel(ax,bx,ay,by,g_c,Gcount)
     #print(rezult)
-    rez=WhiteNoiseModel(a,b,Wcount)
+    rez=WhiteNoiseModel(ax,bx,ay,by,Wcount)
     #print(rez)
     f=[]
     for i in range(len(rez)):

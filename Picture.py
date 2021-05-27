@@ -9,6 +9,14 @@ from our_func import *
 from Parzen import Parzen_P
 #from Gauss import *
 
+#maximum separate data for pic
+def UnderGround(mass,size):
+    for i in range(size):
+        for j in range(size):
+            if(mass[i][j]>0):
+                mass[i][j]=1
+            else:
+                mass[i][j]=0
 
 def Pic(mass,path):
     fig = plt.figure()
@@ -18,8 +26,15 @@ def Pic(mass,path):
             origin='lower')
     plt.colorbar(img,cmap=cmap)     
     plt.savefig(path)
-            
 
+def Pic_Example(mass,path):
+    fig = plt.figure()
+    cmap = mpl.colors.LinearSegmentedColormap.from_list('my_colormap',['black','white','yellow'],256)
+    img = plt.imshow(mass,interpolation='nearest',
+            cmap = cmap,
+            origin='lower')
+    plt.colorbar(img,cmap=cmap)     
+    plt.savefig(path)
 
 
 def Sep_Pic_Parzen(path,data,size,n):

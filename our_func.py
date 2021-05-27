@@ -54,9 +54,10 @@ def TxtToArray(filename,size,col):
     #kk=[[0]*size for i in range(size)]
     #kk=StarDensityTxtWithRad(mass1,size)
     #return kk
-    return mass1
+    return mass1,minr,maxr,mind,maxd
     #lets
     #do it
+
 def Piece_of_mass(mass,v,size):
     if (size + v[0] - 1 > pow(np.size(mass),0.5) or size + v[1] - 1 > pow(np.size(mass),0.5)):
         print("Error index out")

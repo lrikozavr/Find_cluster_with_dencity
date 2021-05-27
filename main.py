@@ -19,13 +19,22 @@ size_w = 100
 size_p = 1000
 #col_num = 60
 len_=200000
-data_g=GaussAndWhiteNoiseModel(0,1000,200.,len_,0.5)
+data_g=GaussAndWhiteNoiseModel(0,1000,0,1000,200.,len_,0.5)
 #
 data_w=[[0]*size_w for i in range(size_w)]
+temp_w,minr_w,maxr_w,mind_w,maxd_w=TxtToArray(fileinput,size_w,int(col_num))
+data_w = StarDensityTxtWithRad_W(temp_w,size_w)
+#
 data_p=[[0]*size_p for i in range(size_p)]
+temp_p,minr_p,maxr_p,mind_p,maxd_p=TxtToArray(fileinput,size_p,int(col_num))
+data_p = StarDensityTxtWithRad_P(temp_p,size_p)
+#
+example_w=AddExample("filename",minr_w,maxr_w,mind_w,maxd_w,size_w)
+#
+example_p=AddExample("filename",minr_p,maxr_p,mind_p,maxd_p,size_p)
+#
+#Обрабатывай данные сдесь, а не в картинках
 
-data_w = StarDensityTxtWithRad_W(TxtToArray(fileinput,size_w,int(col_num)),size_w)
-data_p = StarDensityTxtWithRad_P(TxtToArray(fileinput,size_p,int(col_num)),size_p)
 #P_data,P_data_max,P_data_min = PforEach(data,size)
 ##########
 #x, y = makeData(range(size),range(size))

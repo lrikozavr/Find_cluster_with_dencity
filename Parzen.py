@@ -58,7 +58,16 @@ def ValSep_P(x,y,value,size,mass):
             if(su!=1):
                 mass[i1-1][j1]+=value
     
-    
+def AddExample(filename,minr,maxr,mind,maxd,size):
+    rezult=[[0]*size for i in range(size)]
+    KORA=abs((size-1e-5)/(maxr-minr))
+    KODA=abs((size-1e-5)/(maxd-mind))
+    for line in open(filename):
+        n=line.split(",")
+        y=KODA*float(n[1])
+        x=KORA*float(n[0])
+        ValSep(x,y,1,size,cf2,rezult)#!!!!!!!!!!!!!!!!!!!!!
+    return rezult    
     
 
 def StarDensityTxtWithRad_W(x,size):
