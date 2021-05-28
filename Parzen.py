@@ -124,7 +124,7 @@ def StarDensityTxtWithRad_P(x,size):
 def Moda(bach,mass,size):
     temp=[0]*bach
     #temp=[[0]*size for i in range(size)]
-    max,min=-1,1
+    max,min=-1000,1000
     for i in range(size):
         for j in range(size):
             if(mass[i][j]>max):
@@ -132,10 +132,12 @@ def Moda(bach,mass,size):
             if(mass[i][j]<min):
                 min=mass[i][j]
     dm=max-min
+    print(max,min)
     koef_bach=(bach-1e-5)/dm
     for i in range(size):
         for j in range(size):
-            temp[math.trunc((mass[i][j]-min)*koef_bach)]+=1
+            if(mass[i][j]>1):
+                temp[math.trunc((mass[i][j]-min)*koef_bach)]+=1
     maxt=-1
     index=-1
     for i in range(bach):
@@ -144,6 +146,7 @@ def Moda(bach,mass,size):
             index=i
     index+=0.5
     rezult = (index*dm)/(bach-1e-5) + min
+    print("Moda:    ",rezult)                                #!!!!!!!!!!!!!!
     return rezult
         
 
@@ -170,19 +173,20 @@ def calc_lambada(loc_m,mass,step):
     loc=[]
     for i in range(len(loc_m)):
         loc.append(mass[loc_m[i][0]][loc_m[i][1]])
+        #!!!!!!!!!!!!!!!!!!
+        mass[loc_m[i][0]][loc_m[i][1]]=0
     #big to small
     loc.sort(reverse=True)
     dl,fl=0,0
     for i in range(len(loc)):
         if(i+1 != len(loc)):
-            if(dl > loc[i+1]-loc[i]):
+            if(dl > loc[i]-loc[i+1]):
+                #print("LocalM:  ",loc)           #!!!!!!!!!!!!!!!!!!!!!!
+                print("LocalM:  ",loc[i])
                 return loc[i]
-                '''
-                fl+=1
-            dl=loc[i+1]-loc[i]
-            if(fl>step):
-                return loc[i]
-                '''
+            else: 
+                dl=loc[i]-loc[i+1]
+
 
 def sigma_bg(loc_m,mass,N,mode,lambada):
     sum=0
@@ -200,13 +204,16 @@ def Parzen_P(mass,size):
     bachsize=40
     localmaxima=[]
     #mass=StarDensityTxtWithRad_P(x,size)
-    N=0
+    N=size**2
+    '''
     for i in range(size):
         for j in range(size):
             N+=mass[i][j]
+    '''
     for i in range(size):
         for j in range(size):
-            h[i][j]=mass[i][j]/(N*4)
+            h[i][j]=mass[i][j]#/(N*4)
+    
     moda=Moda(bachsize,h,size)
     localmaxima=LocalMaxima(h,size,moda)
     #
@@ -214,6 +221,7 @@ def Parzen_P(mass,size):
     #
     lambada=calc_lambada(localmaxima,h,0)
     sig_bg=sigma_bg(localmaxima,h,N,moda,lambada)
+    print("Sig Bg:  ",sig_bg)
     for i in range(size):
         for j in range(size):
             if(h[i][j]<2*sig_bg+moda):

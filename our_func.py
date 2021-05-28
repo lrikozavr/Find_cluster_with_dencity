@@ -57,6 +57,25 @@ def TxtToArray(filename,size,col):
     return mass1,minr,maxr,mind,maxd
     #lets
     #do it
+def ArrayToTxt(filename,co,a_list,size):
+    g=open(filename,"w")
+    
+    dx=co[1]-co[0]
+    dy=co[3]-co[2]
+    
+    #ox=dx/2.
+    #oy=dy/2.
+
+    KORA=abs(dx/float(size))
+    KODA=abs(dy/float(size))
+    
+    for i in range(len(a_list)):
+        n=a_list[i].split(",")
+        g.write(str(float(n[0])*KORA+co[0])+","+str(float(n[1])*KODA+co[2])+"\n")
+
+
+
+
 
 def Piece_of_mass(mass,v,size):
     if (size + v[0] - 1 > pow(np.size(mass),0.5) or size + v[1] - 1 > pow(np.size(mass),0.5)):
