@@ -68,4 +68,9 @@ def Piece_of_mass(mass,v,size):
             rezult[i][j] = mass[v[0]+i][v[1]+j]
     return rezult
 
-
+def SumOfMatrix(mass1,mass2,size):
+    rezult=[[0]*size for i in range(size)]
+    for i in range(size):
+        for j in range(size):
+            rezult[i][j]=mass1[i][j]+mass2[i][j]
+    return rezult

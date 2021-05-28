@@ -6,29 +6,30 @@ cf2,cf4=0.25,0.5
 def ValSep(x,y,value,size,cf,mass):
     i1=math.trunc(x)
     j1=math.trunc(y)
-    mass[j1][i1]+=value
-    #
-    su=0
-    if(x - i1 < cf and i1 > 0):
-        mass[j1][i1-1]+=value
-        su+=1
-    if(x - i1 > 1 - cf and i1 < size - 1):
-        mass[j1][i1+1]+=value    
-        su+=3
-    if(y - j1 < cf and j1 > 0):
-        mass[j1-1][i1]+=value 
-        su+=1
-    if(y - j1 > 1 - cf and j1 < size - 1):
-        mass[j1+1][i1]+=value    
-        su+=5
-    if(su==2):
-        mass[j1-1][i1-1]+=value
-    if(su==4):
-        mass[j1-1][i1+1]+=value
-    if(su==6):
-        mass[j1+1][i1-1]+=value
-    if(su==8):
-        mass[j1+1][i1+1]+=value
+    if(j1>=0 and i1>=0 and j1<size and i1<size):
+        mass[j1][i1]+=value
+        #
+        su=0
+        if(x - i1 < cf and i1 > 0):
+            mass[j1][i1-1]+=value
+            su+=1
+        if(x - i1 > 1 - cf and i1 < size - 1):
+            mass[j1][i1+1]+=value    
+            su+=3
+        if(y - j1 < cf and j1 > 0):
+            mass[j1-1][i1]+=value 
+            su+=1
+        if(y - j1 > 1 - cf and j1 < size - 1):
+            mass[j1+1][i1]+=value    
+            su+=5
+        if(su==2):
+            mass[j1-1][i1-1]+=value
+        if(su==4):
+            mass[j1-1][i1+1]+=value
+        if(su==6):
+            mass[j1+1][i1-1]+=value
+        if(su==8):
+            mass[j1+1][i1+1]+=value
 
 def ValSep_P(x,y,value,size,mass):
     i1=math.trunc(x)
@@ -58,15 +59,15 @@ def ValSep_P(x,y,value,size,mass):
             if(su!=1):
                 mass[i1-1][j1]+=value
     
-def AddExample(filename,minr,maxr,mind,maxd,size):
+def AddExample(filename,value,minr,maxr,mind,maxd,size):
     rezult=[[0]*size for i in range(size)]
     KORA=abs((size-1e-5)/(maxr-minr))
     KODA=abs((size-1e-5)/(maxd-mind))
     for line in open(filename):
         n=line.split(",")
-        y=KODA*float(n[1])
-        x=KORA*float(n[0])
-        ValSep(x,y,1,size,cf2,rezult)#!!!!!!!!!!!!!!!!!!!!!
+        y=KODA*(float(n[1])-mind)
+        x=KORA*(float(n[0])-minr)
+        rezult[math.trunc(y)][math.trunc(x)]=value #!!!!!!!!!!!!!!!!!!!!!
     return rezult    
     
 
@@ -109,7 +110,7 @@ def StarDensityTxtWithRad_P(x,size):
             var=int(n[2])#########################################################################
         else: var=1
         #ValSep(float(n[0]),float(n[1]),var,size,cf2,h)
-        ValSep_P(float(n[0]),float(n[1]),var,size,h)
+        ValSep_P(float(n[1]),float(n[0]),var,size,h)
         
         '''
     for i in range(size):

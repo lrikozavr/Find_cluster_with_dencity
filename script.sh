@@ -6,6 +6,7 @@ b1=40
 b2=50
 
 dir_path=$(pwd)
+echo "$(pwd)"
 :<<comment
 start=`date +%s.%N`
 psql -h 192.168.225.193 astrocat -U user -c "copy (SELECT ra, dec, w1, w2 FROM allwise WHERE q3c_poly_query(ra,dec,'(($a1,$b1), ($a1,$b2), ($a2,$b2), ($a2,$b1))'::polygon)) to stdout with csv header delimiter E'\t'" > allwise.$a1.$b1.$a2.$b2.1.csv
@@ -36,16 +37,18 @@ comment
 cd allwise_slice
 iteration=1
 #dir_path=$(pwd)
+
 for i in $(ls)
 do
+#i="allwise_10_13.csv"
 load=`date +%s.%N`
 mkdir $dir_path/allwise_slice_pic/$iteration
 echo "$i"
-../main.py $i $dir_path/allwise_slice_pic/$iteration/0_$i 0
+../main.py $i $dir_path/allwise_slice_pic/$iteration/0_$i $dir_path/catalog_300_310_40_50.csv 0
 end1=`date +%s.%N`
 echo "col 0"
 echo "$end1 - $load" | bc -l
-../main.py $i $dir_path/allwise_slice_pic/$iteration/7_$i 7
+../main.py $i $dir_path/allwise_slice_pic/$iteration/7_$i $dir_path/catalog_300_310_40_50.csv 7
 end2=`date +%s.%N`
 echo "col 7"
 echo "$end2 - $end1" | bc -l
