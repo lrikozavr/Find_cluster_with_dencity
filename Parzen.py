@@ -132,7 +132,7 @@ def Moda(bach,mass,size):
             if(mass[i][j]<min):
                 min=mass[i][j]
     dm=max-min
-    print(max,min)
+    print("Max: ",max,"Min:  ",min)
     koef_bach=(bach-1e-5)/dm
     for i in range(size):
         for j in range(size):
@@ -204,12 +204,10 @@ def Parzen_P(mass,size):
     bachsize=40
     localmaxima=[]
     #mass=StarDensityTxtWithRad_P(x,size)
-    N=size**2
-    '''
+    N=0
     for i in range(size):
         for j in range(size):
             N+=mass[i][j]
-    '''
     for i in range(size):
         for j in range(size):
             h[i][j]=mass[i][j]#/(N*4)
